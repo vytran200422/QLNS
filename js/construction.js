@@ -9,11 +9,11 @@ function User(account, userName, mail, pass, date, salary, position, time) {
   this.time = time;
 }
 User.prototype.calSalary = function () {
-  if (this.position == "sep") {
+  if (this.position == "Sếp") {
     return (this.salary * 3).toLocaleString();
-  } else if (this.position == "truongPhong") {
+  } else if (this.position == "Trưởng phòng") {
     return (this.salary * 2).toLocaleString();
-  } else if (this.position == "nhanVien") {
+  } else if (this.position == "Nhân viên") {
     return (this.salary * 1).toLocaleString();
   }
 };

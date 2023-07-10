@@ -124,7 +124,7 @@
 						<div class="row mb-3">
 							<div class="col">
 								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Loại nhân viên" id="searchName">
+									<input type="search" class="form-control" placeholder="Loại nhân viên" id="searchName">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="btnTimNV"><i class="fa fa-search"></i></span>
 									</div>
@@ -264,9 +264,9 @@
 								</div>
 								<select onchange="position()" class="form-control" id="chucvu">
 									<option value="">Chọn chức vụ</option>
-									<option value="sep">Sếp</option>
-									<option value="truongPhong">Trưởng phòng</option>
-									<option value="nhanVien">Nhân viên</option>
+									<option value="Sếp">Sếp</option>
+									<option value="Trưởng phòng">Trưởng phòng</option>
+									<option value="Nhân viên">Nhân viên</option>
 								</select>
 							</div>
 
@@ -289,7 +289,7 @@
 				<!-- Modal footer -->
 				<div class="modal-footer" id="modal-footer">
 					<button id="btnThemNV" type="button" onclick="addUser()" class="btn btn-success">Thêm người dùng</button>
-					<button id="btnCapNhat" type="button" class="btn btn-success">Cập nhật</button>
+					<button id="btnCapNhat" onclick="updateUser()" type="button" class="btn btn-success">Cập nhật</button>
 					<button id="btnDong" type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
 				</div>
 

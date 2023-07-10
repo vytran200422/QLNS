@@ -64,7 +64,7 @@ function display(users) {
                 value.mail
               }')" >Xoá</button>
 
-              <button class = "btn btn-success" data-toggle="modal" data-target="#myModal" onclick = "updateUser('${
+              <button class = "btn btn-success" data-toggle="modal" data-target="#myModal" onclick = "selectUser('${
                 value.mail
               }')">Cập nhật</button>
             </td>
@@ -86,7 +86,7 @@ function isRequired(value) {
 
 // input check
 function position(value) {
-  if (!(value == "sep" || value == "truongPhong" || value == "nhanVien")) {
+  if (!(value == "Sếp" || value == "Trưởng phòng" || value == "Nhân viên")) {
     return false;
   }
   return true;
@@ -241,32 +241,87 @@ function deleteUser(email) {
   display(users);
 }
 
-// Update User
-function updateUser(email) {
+// select User
+function selectUser(email) {
   let selectedUser = users.find((value) => {
     return value.mail === email;
   });
-  document.getElementById("tknv").innerHTML = selectedUser.account;
-  document.getElementById("name").innerHTML = selectedUser.userName;
-  document.getElementById("email").innerHTML = selectedUser.mail;
-  document.getElementById("password").innerHTML = selectedUser.pass;
-  document.getElementById("datepicker").innerHTML = selectedUser.date;
-  document.getElementById("luongCB").innerHTML = selectedUser.salary;
-  document.getElementById("chucvu").innerHTML = selectedUser.position;
-  document.getElementById("gioLam").innerHTML = selectedUser.time;
+  document.getElementById("tknv").value = selectedUser.account;
+  document.getElementById("name").value = selectedUser.userName;
+  document.getElementById("email").value = selectedUser.mail;
+  document.getElementById("password").value = selectedUser.pass;
+  document.getElementById("datepicker").value = selectedUser.date;
+  document.getElementById("luongCB").value = selectedUser.salary;
+  document.getElementById("chucvu").value = selectedUser.position;
+  document.getElementById("gioLam").value = selectedUser.time;
+
+  document.getElementById("btnThemNV").disabled = true;
+}
+
+// update user
+function updateUser() {
+  //1. DOM để lấy thông tin
+  let account = document.getElementById("tknv").value;
+  let userName = document.getElementById("name").value;
+  let mail = document.getElementById("email").value;
+  let pass = document.getElementById("password").value;
+  let date = document.getElementById("datepicker").value;
+  let salary = document.getElementById("luongCB").value;
+  let position = document.getElementById("chucvu").value;
+  let time = document.getElementById("gioLam").value;
+
+  //2. khởi tạo đối tượng
+  let user = new User(
+    account,
+    userName,
+    mail,
+    pass,
+    date,
+    salary,
+    position,
+    time
+  );
+
+  //3. Tìm vị trí index
+  let userIndex = users.findIndex((value) => {
+    return (value.mail = mail);
+  });
+
+  // 4. Thay thế phần tử index cho obj mới tạo
+  users[userIndex] = user;
+
+  //5. display
+  display(users);
 }
 
 // reset form
 function resetForm() {
-  document.getElementById("tknv").innerHTML = "";
-  document.getElementById("name").innerHTML = "";
-  document.getElementById("email").innerHTML = "";
-  document.getElementById("password").innerHTML = "";
-  document.getElementById("datepicker").innerHTML = "";
-  document.getElementById("luongCB").innerHTML = "";
-  document.getElementById("chucvu").innerHTML = "";
-  document.getElementById("gioLam").innerHTML = "";
+  document.getElementById("tknv").value = "";
+  document.getElementById("name").value = "";
+  document.getElementById("email").value = "";
+  document.getElementById("password").value = "";
+  document.getElementById("datepicker").value = "";
+  document.getElementById("luongCB").value = "";
+  document.getElementById("chucvu").value = "";
+  document.getElementById("gioLam").value = "";
 }
+
+// find user
+let searchBar = document.querySelector('input[type="search"]');
+searchBar.onsearch = () => {
+  // 1. DOM tới search bả để lấy thông tin
+  let searchedType = document.getElementById("searchName").value;
+  // Bỏ khoảng trắng và chuyển về chữ thường
+  searchedType = searchedType.trim().toLowerCase();
+
+  // 2. Lọc tên user trùng khớp
+  let matchedType = users.filter((value) => {
+    let type = value.rate().trim().toLowerCase();
+    return type;
+  });
+
+  display(matchedType);
+};
 
 //-----------------sự kiện oninput-----------------//
 document.getElementById("tknv").oninput = (event) => {
