@@ -314,10 +314,10 @@ searchBar.onsearch = () => {
   // Bỏ khoảng trắng và chuyển về chữ thường
   searchedType = searchedType.trim().toLowerCase();
 
-  // 2. Lọc tên user trùng khớp
+  // 2. Lọc type user trùng khớp
   let matchedType = users.filter((value) => {
     let type = value.rate().trim().toLowerCase();
-    return type;
+    return type.includes(searchedType);
   });
 
   display(matchedType);
